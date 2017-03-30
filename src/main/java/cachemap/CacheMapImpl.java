@@ -1,47 +1,78 @@
 package cachemap;
 
-public class CacheMapImpl implements CacheMap {
-    public void setTimeToLive(long timeToLive) {
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
+public class CacheMapImpl<K, T> implements CacheMap<K, T> {
+    private long timeToLive;
+    private Map<K, T> cacheMap;
+    private Map<K, Long> timeMap;
+
+    public CacheMapImpl() {
+        timeToLive = 0;
+        cacheMap = new HashMap<K, T>();
+        timeMap = new HashMap<K, Long>();
+    }
+
+    public void setTimeToLive(long timeToLive) {
+        this.timeToLive = timeToLive;
     }
 
     public long getTimeToLive() {
-        return 0;
+        return timeToLive;
     }
 
-    public Object put(Object key, Object value) {
-        return null;
+    public T put(K key, T value) {
+        clearExpired();
+        timeMap.put(key, Clock.getTime());
+        return cacheMap.put(key, value);
     }
 
     public void clearExpired() {
-
+        if (timeToLive > 0) {
+            for (Iterator<Map.Entry<K, Long>> it = timeMap.entrySet().iterator(); it.hasNext(); ) {
+                Map.Entry e = it.next();
+                if ((Clock.getTime() - (Long) e.getValue()) >= timeToLive) {
+                    cacheMap.remove(e.getKey());
+                    it.remove();
+                }
+            }
+        }
     }
 
     public void clear() {
-
+        cacheMap.clear();
+        timeMap.clear();
     }
 
     public boolean containsKey(Object key) {
-        return false;
+        clearExpired();
+        return cacheMap.containsKey(key);
     }
 
     public boolean containsValue(Object value) {
-        return false;
+        clearExpired();
+        return cacheMap.containsValue(value);
     }
 
-    public Object get(Object key) {
-        return null;
+    public T get(Object key) {
+        clearExpired();
+        return cacheMap.get(key);
     }
 
     public boolean isEmpty() {
-        return false;
+        clearExpired();
+        return cacheMap.isEmpty();
     }
 
-    public Object remove(Object key) {
-        return null;
+    public T remove(Object key) {
+        clearExpired();
+        return cacheMap.remove(key);
     }
 
     public int size() {
-        return 0;
+        clearExpired();
+        return cacheMap.size();
     }
 }

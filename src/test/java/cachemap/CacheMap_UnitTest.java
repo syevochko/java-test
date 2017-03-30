@@ -14,9 +14,7 @@ public class CacheMap_UnitTest extends TestCase {
 
     public void setUp() throws Exception {
         Clock.setTime(1000);
-
-        //TODO instantiate cache object
-
+        cache = new CacheMapImpl<Integer, String>();
         cache.setTimeToLive(TIME_TO_LIVE);
     }
 
