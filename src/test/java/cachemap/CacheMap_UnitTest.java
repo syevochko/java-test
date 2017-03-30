@@ -1,4 +1,7 @@
+package cachemap;
+
 import junit.framework.TestCase;
+
 
 /**
  * JUnit test case for a CacheMap implementation.
