@@ -9,7 +9,7 @@ public class AddressDb {
      * @return Method creates new database connection with defined params
      * @throws SQLException
      */
-    public Connection getConnection() throws SQLException {
+    private Connection getConnection() throws SQLException {
         return DriverManager.getConnection("jdbc:oracle:thin:@prod", "admin", "beefhead");
     }
 

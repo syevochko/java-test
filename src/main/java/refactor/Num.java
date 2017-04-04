@@ -7,8 +7,7 @@ class Num {
         val = x;
     }
 
-    public String getVal() {
+    public String getNumber() {
         return val;
     }
-
 }

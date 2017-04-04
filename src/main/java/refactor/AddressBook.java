@@ -6,24 +6,7 @@ import java.util.List;
 public class AddressBook {
     private static final String MOBILE_CODE = "070";
 
-    static {
-        new Checker().start();
-    }
-
-    static class Checker extends Thread {
-        long time = System.currentTimeMillis();
-
-        public void run() {
-            while (System.currentTimeMillis() < time) {
-                new AddressBook().getList();
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                }
-            }
-
-        }
-    }
+    // I have deleted the Checker().start() because it did nothing
 
     public boolean hasMobile(Person person) {
         return person != null && person.getPhoneNumber().getNumber().startsWith(MOBILE_CODE);

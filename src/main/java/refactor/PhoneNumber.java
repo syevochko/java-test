@@ -8,7 +8,7 @@ public class PhoneNumber {
     }
 
     public String getNumber() {
-        return number.getVal();
+        return number.getNumber();
     }
 
 }
